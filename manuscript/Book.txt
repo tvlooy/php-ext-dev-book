@@ -1,1 +1,1 @@
-NewExtension.txt
+NewExtension.md
