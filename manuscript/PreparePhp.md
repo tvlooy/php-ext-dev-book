@@ -174,7 +174,7 @@ cp sapi/fpm/php-fpm.conf.in /etc/php7/fpm/php-fpm.conf
 sed -i 's#^include=.*/#include=/etc/php7/fpm/pool.d/#' /etc/php7/fpm/php-fpm.conf
 
 mkdir /etc/php7/fpm/pool.d/
-cp /usr/local/php-${PHP_VERSION}/etc/php-fpm.d/www.conf.default /etc/php7/fpm/pool.d/www.conf
+cp /usr/local/php7/etc/php-fpm.d/www.conf.default /etc/php7/fpm/pool.d/www.conf
 sed -i 's/listen = 127.0.0.1:9000/listen = 127.0.0.1:9070/g' /etc/php7/fpm/pool.d/www.conf
 
 # Enable in RC system (there is an init.d and systemd version available)
