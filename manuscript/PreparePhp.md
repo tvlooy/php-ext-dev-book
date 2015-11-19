@@ -28,7 +28,7 @@ If you are on master, this is bleeding edge. At the moment it points to 7.1.
 The minimal instructions to compile a working PHP version are:
 
 ```
-buildconf --force
+./buildconf --force
 
 ./configure \
     --enable-debug \
@@ -78,6 +78,8 @@ apt-get install -y \
 Compile and install PHP CLI and FPM.
 
 ```
+./buildconf --force
+
 # Prepare installation directories
 
 mkdir -p /etc/php7/conf.d
