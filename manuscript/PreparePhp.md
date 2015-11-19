@@ -201,7 +201,7 @@ the binaries ```php```, ```phpize```, ... to a directory in your path or just
 add the entire directory to your path.
 
 ```
-export PATH=$PATH:/usr/local/php7/bin/:/usr/local/php7/sbin/
+export PATH=$PATH:/usr/local/php7/bin:/usr/local/php7/sbin
 ```
 
 ## Build extensions
