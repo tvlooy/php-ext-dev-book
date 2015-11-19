@@ -86,15 +86,6 @@ mkdir -p /etc/php7/conf.d
 mkdir -p /etc/php7/{cli,fpm}/conf.d
 mkdir /usr/local/php7
 
-# Download
-
-rm -rf php-src
-git clone http://github.com/php/php-src.git
-cd php-src
-git checkout -b php-7.0 php-7.0
-
-./buildconf --force
-
 # Default options
 
 CONFIGURE_STRING="--prefix=/usr/local/php7 \
@@ -149,7 +140,7 @@ make install
 # Install config files
 
 cp php.ini-production /etc/php7/cli/php.ini
-sed -i 's/;date.timezone =.*/date.timezone = Europe\/Brussels/' /etc/php7/fpm/php.ini
+sed -i 's/;date.timezone =.*/date.timezone = Europe\/Brussels/' /etc/php7/cli/php.ini
 ```
 
 Next clean the build and do the same for FPM.
@@ -177,7 +168,7 @@ make install
 # Install config files
 
 cp php.ini-production /etc/php7/fpm/php.ini
-sed -i 's/;date.timezone =.*/date.timezone = Europe\/Brussels/' /etc/php7/cli/php.ini
+sed -i 's/;date.timezone =.*/date.timezone = Europe\/Brussels/' /etc/php7/fpm/php.ini
 
 cp sapi/fpm/php-fpm.conf.in /etc/php7/fpm/php-fpm.conf
 sed -i 's#^include=.*/#include=/etc/php7/fpm/pool.d/#' /etc/php7/fpm/php-fpm.conf
