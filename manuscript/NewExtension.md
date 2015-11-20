@@ -82,7 +82,7 @@ ln -s /etc/php7/conf.d/hello.ini /etc/php7/cli/conf.d/hello.ini
 ln -s /etc/php7/conf.d/hello.ini /etc/php7/fpm/conf.d/hello.ini
 ```
 
-Or, you can not install it and test it from the build directory:
+Or, you can not install it and just load it from the build directory:
 
 ```
 php -a -dextension=modules/hello.so
