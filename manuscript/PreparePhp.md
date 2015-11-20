@@ -8,14 +8,14 @@ for the PHP version they package for you. Eg:
 
 But, you can also get the source from Git and use that. There is a Github mirror:
 
-```
+```bash
 git clone https://github.com/php/php-src.git
 cd php-src
 ```
 
 Checkout the branch you want to work on.
 
-```
+```bash
 git checkout PHP-5.6
 git checkout PHP-7.0
 git checkout master
@@ -27,7 +27,7 @@ If you are on master, this is bleeding edge. At the moment it points to 7.1.
 
 The minimal instructions to compile a working PHP version are:
 
-```
+```bash
 ./buildconf --force
 
 ./configure \
@@ -54,7 +54,7 @@ more or less what you get when you would install the Debian package.
 
 Dependencies you need on Debian 8 are:
 
-```
+```bash
 apt-get update
 apt-get install -y \
     bison \
@@ -77,7 +77,7 @@ apt-get install -y \
 
 Compile and install PHP CLI and FPM.
 
-```
+```bash
 ./buildconf --force
 
 # Prepare installation directories
@@ -123,9 +123,9 @@ CONFIGURE_STRING="$CONFIGURE_STRING \
 ```
 
 This will get the source ready to compile CLI or FPM. The first one to compile
-is ClI:
+is CLI:
 
-```
+```bash
 # Configure and compile CLI
 
 ./configure \
@@ -149,7 +149,7 @@ Note that I use ```www-data``` as the user for FPM. This user is available if
 you install Nginx or Apache2 on Debian. If you don't have this use, create it
 first or use a different user:
 
-```
+```bash
 make distclean
 ./buildconf --force
 
@@ -193,7 +193,7 @@ Now you are ready to use PHP from ```/usr/local/php7/bin/php```. You can symlink
 the binaries ```php```, ```phpize```, ... to a directory in your path or just
 add the entire directory to your path.
 
-```
+```bash
 export PATH=$PATH:/usr/local/php7/bin:/usr/local/php7/sbin
 ```
 
@@ -202,7 +202,7 @@ export PATH=$PATH:/usr/local/php7/bin:/usr/local/php7/sbin
 You can now build extra extensions if you like. One extension, opcache, is already
 built and you will want to enable this for performance reasons.
 
-```
+```bash
 echo "zend_extension=opcache.so" > /etc/php7/conf.d/opcache.ini
 ln -s /etc/php7/conf.d/opcache.ini /etc/php7/cli/conf.d/opcache.ini
 ln -s /etc/php7/conf.d/opcache.ini /etc/php7/fpm/conf.d/opcache.ini

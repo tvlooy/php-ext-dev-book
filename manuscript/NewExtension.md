@@ -7,7 +7,7 @@ Extensions should follow the PHP codings standards. You can find these at
 
 Make a directory ```hello``` and put these files in it:
 
-```
+```m4
 dnl config.m4
 
 PHP_ARG_ENABLE(hello, whether to enable hello extension,
@@ -18,7 +18,7 @@ if test "$PHP_HELLO" != "no"; then
 fi
 ```
 
-```
+```c
 /* php_hello.h */
 
 #define PHP_HELLO_EXTNAME "hello"
@@ -27,7 +27,7 @@ fi
 PHP_FUNCTION(hello);
 ```
 
-```
+```c
 /* php_hello.c */
 
 /* include PHP API */
@@ -67,7 +67,7 @@ PHP_FUNCTION(hello) {
 
 Build the extension with:
 
-```
+```bash
 phpize
 ./configure
 make
@@ -75,7 +75,7 @@ make
 
 You can test your extension by installing it and loading if with an ini directive:
 
-```
+```bash
 make install
 echo "extension=hello.so" > /etc/php7/conf.d/hello.ini
 ln -s /etc/php7/conf.d/hello.ini /etc/php7/cli/conf.d/hello.ini
@@ -84,7 +84,7 @@ ln -s /etc/php7/conf.d/hello.ini /etc/php7/fpm/conf.d/hello.ini
 
 Or, you can not install it and just load it from the build directory:
 
-```
+```bash
 php -a -dextension=modules/hello.so
 php > hello();
 Hello world!
