@@ -14,7 +14,7 @@ PHP_ARG_ENABLE(hello, whether to enable hello extension,
 [  --enable-hello          Enable hello extension])
 
 if test "$PHP_HELLO" != "no"; then
-    PHP_NEW_EXTENSION(hello, php_hello.c, $ext_shared)
+    PHP_NEW_EXTENSION(hello, hello.c, $ext_shared)
 fi
 ```
 
@@ -28,10 +28,10 @@ PHP_FUNCTION(hello);
 ```
 
 ```c
-/* php_hello.c */
+/* hello.c */
 
 /* include PHP API */
-#include <php.h>
+#include "php.h"
 
 /* this module's header file */
 #include "php_hello.h"
@@ -47,11 +47,7 @@ zend_module_entry hello_module_entry = {
   STANDARD_MODULE_HEADER,
   PHP_HELLO_EXTNAME,
   hello_functions,
-  NULL,
-  NULL,
-  NULL,
-  NULL,
-  NULL,
+  NULL, NULL, NULL, NULL, NULL,
   PHP_HELLO_VERSION,
   STANDARD_MODULE_PROPERTIES
 };
