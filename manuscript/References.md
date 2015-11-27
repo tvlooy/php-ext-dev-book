@@ -21,3 +21,4 @@
   - http://fr.slideshare.net/jpauli/understanding-php-objects
   - http://fr.slideshare.net/jpauli/understanding-php-memory
   - http://php.net/manual/en/internals2.ze1.zendapi.php
+  - http://www.phpinternalsbook.com/
