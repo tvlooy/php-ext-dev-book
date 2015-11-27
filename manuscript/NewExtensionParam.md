@@ -61,7 +61,7 @@ PHP_FUNCTION(hello) {
   char *name = NULL;
   size_t name_len = 0;
 
-  if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &name, &name_len) == FAILURE) {
+  if (zend_parse_parameters(ZEND_NUM_ARGS(), "s", &name, &name_len) == FAILURE) {
       return;
   }
 
