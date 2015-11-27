@@ -1,8 +1,10 @@
 # References
 
+This book was based on work from others. I had to learn this stuff too somehow.
+
   - http://devzone.zend.com/303/extension-writing-part-i-introduction-to-php-and-zend/
 
-# Other material
+## Reading list
 
   - http://devzone.zend.com/317/extension-writing-part-ii-parameters-arrays-and-zvals/
   - http://devzone.zend.com/318/extension-writing-part-ii-parameters-arrays-and-zvals-continued/

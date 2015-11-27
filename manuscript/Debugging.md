@@ -3,7 +3,7 @@
 Things will not always work and C is more difficult than PHP. So how do you
 debug a problem? For example:
 
-# Segfault
+## Segfault
 
 ```
 $ php -dextension=modules/hello.so -a
@@ -32,7 +32,7 @@ $ php -r 'hello("test");'
 Segmentation fault
 ```
 
-# Get coredump
+## Get coredump
 
 Enable coredumps and run the program again:
 
@@ -47,7 +47,7 @@ Segmentation fault (core dumped)
 
 A file named ```core``` will be created.
 
-# Find problem
+## Find problem
 
 Run the GNU debugger on php with your coredump.
 
