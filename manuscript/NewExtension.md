@@ -14,7 +14,7 @@ PHP_ARG_ENABLE(hello, whether to enable hello extension,
 [  --enable-hello          Enable hello extension])
 
 if test "$PHP_HELLO" != "no"; then
-    PHP_NEW_EXTENSION(hello, hello.c, $ext_shared)
+  PHP_NEW_EXTENSION(hello, hello.c, $ext_shared)
 fi
 ```
 
@@ -84,4 +84,46 @@ Or, you can not install it and just load it from the build directory:
 php -a -dextension=modules/hello.so
 php > hello();
 Hello world!
+```
+
+Or you can test your extension with ```-r```, I'll show a variation:
+
+```bash
+php -dextension_dir=modules \
+    -dextension=hello.so \
+    -n \
+    -r 'hello();'
+Hello world!
+```
+
+The optional ```-n``` flag makes sure you don't load the default ini file.
+
+## More functions
+
+Adding more functions is a matter of adding them to the hello_functions, writing
+the actual function and exporting it in the header.
+
+```c
+/* hello.c */
+
+zend_function_entry hello_functions[] = {
+  PHP_FE(hi_world, NULL)
+  PHP_FE(bye_world, NULL)
+  { NULL, NULL, NULL }
+};
+
+PHP_FUNCTION(hi_world) {
+  php_printf("Hello world!\n");
+}
+
+PHP_FUNCTION(bye_world) {
+  php_printf("Goodbye world!\n");
+}
+```
+
+```c
+/* php_hello.h */
+
+PHP_FUNCTION(hi_world);
+PHP_FUNCTION(bye_world);
 ```

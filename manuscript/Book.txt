@@ -1,2 +1,8 @@
+Introduction.md
 PreparePhp.md
 NewExtension.md
+NewExtensionParam.md
+NewExtensionIni.md
+Debugging.md
+Memory.md
+References.md
