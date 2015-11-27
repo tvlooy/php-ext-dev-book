@@ -89,4 +89,7 @@ It points out that there is a problem with strlen. Now get a full backtrace:
 #12 0x0000000000bed5a4 in main (argc=3, argv=0x173c8d0) at php-src/sapi/cli/php_cli.c:1345
 ```
 
-This may give you hints to Google with :-).
+This may give you hints to Google with :-)
+
+Note that the ```ext``` directory in the PHP source is full of real, working, example extensions.
+You might want to check out how other people did similar things in their extensions.
