@@ -143,16 +143,20 @@ cp php.ini-production /etc/php7/cli/php.ini
 sed -i 's/;date.timezone =.*/date.timezone = Europe\/Brussels/' /etc/php7/cli/php.ini
 ```
 
+Now would be the right time to run ```make test``` too in order to help PHP development.
+
 Next clean the build and do the same for FPM.
 
 Note that I use ```www-data``` as the user for FPM. This user is available if
-you install Nginx or Apache2 on Debian. If you don't have this use, create it
+you install Nginx or Apache2 on Debian. If you don't have this user, create it
 first or use a different user:
 
 ```bash
 make distclean
 ./buildconf --force
+```
 
+```bash
 ./configure \
     $CONFIGURE_STRING \
     --with-config-file-path=/etc/php7/fpm \
