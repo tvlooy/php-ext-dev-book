@@ -1,19 +1,23 @@
-# INI settings
+/* hello.c */
 
-Let's say we want to configure with an INI setting ```hello.yell``` that defines
-whether or not our hello function has to yell.
+/* include PHP API */
+#include "php.h"
+#include "php_ini.h"
 
-In the header, add two prototypes to the header:
+/* this module's header file */
+#include "php_hello.h"
 
-```c
-PHP_MINIT_FUNCTION(hello);
-PHP_MSHUTDOWN_FUNCTION(hello);
-```
+ZEND_BEGIN_ARG_INFO(hello_arginfo, 0)
+  ZEND_ARG_INFO(0, name)
+ZEND_END_ARG_INFO();
 
-Use a init and shutdown function in the module_entry. These will be called
-during the startup (MINIT) of the SAPI and during the shutdown (MSHUTDOWN).
+/* define the function we want to add */
+zend_function_entry hello_functions[] = {
+  PHP_FE(hello, hello_arginfo)
+  { NULL, NULL, NULL }
+};
 
-```c
+/* "hello_functions" refers to the struct defined above */
 zend_module_entry hello_module_entry = {
   STANDARD_MODULE_HEADER,
   PHP_HELLO_EXTNAME,
@@ -24,11 +28,11 @@ zend_module_entry hello_module_entry = {
   PHP_HELLO_VERSION,
   STANDARD_MODULE_PROPERTIES
 };
-```
 
-These two functions look like this:
+PHP_INI_BEGIN()
+PHP_INI_ENTRY("hello.yell", "0", PHP_INI_ALL, NULL)
+PHP_INI_END()
 
-```c
 PHP_MINIT_FUNCTION(hello) {
     REGISTER_INI_ENTRIES();
     return SUCCESS;
@@ -38,19 +42,10 @@ PHP_MSHUTDOWN_FUNCTION(hello) {
     UNREGISTER_INI_ENTRIES();
     return SUCCESS;
 }
-```
 
-Now we are ready to actually register the INI setting:
+/* install module */
+ZEND_GET_MODULE(hello)
 
-```c
-PHP_INI_BEGIN()
-PHP_INI_ENTRY("hello.yell", "0", PHP_INI_ALL, NULL)
-PHP_INI_END()
-```
-
-And use the INI setting in our function:
-
-```c
 /* function hello(string $name): bool */
 PHP_FUNCTION(hello) {
   int i = 0;
@@ -73,4 +68,3 @@ PHP_FUNCTION(hello) {
 
   RETURN_TRUE;
 }
-```
