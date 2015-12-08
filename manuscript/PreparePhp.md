@@ -201,7 +201,7 @@ add the entire directory to your path.
 export PATH=$PATH:/usr/local/php7/bin:/usr/local/php7/sbin
 ```
 
-## Build extensions
+## Building extensions
 
 You can now build extra extensions if you like. One extension, opcache, is already
 built and you will want to enable this for performance reasons.
