@@ -1,14 +1,10 @@
-# References
-
-This book was based on work from others. I had to learn this stuff too somehow.
+# Reading material
 
   - http://devzone.zend.com/303/extension-writing-part-i-introduction-to-php-and-zend/
-
-## Reading list
-
   - http://devzone.zend.com/317/extension-writing-part-ii-parameters-arrays-and-zvals/
   - http://devzone.zend.com/318/extension-writing-part-ii-parameters-arrays-and-zvals-continued/
   - http://devzone.zend.com/446/extension-writing-part-iii-resources/
+  - http://ftp.osuosl.org/pub/hiphop/resources/conf/2013/ConFoo-PHPExtensions.pdf
   - http://blog.golemon.com/2006/06/what-heck-is-tsrmlscc-anyway.html
   - http://www.slideshare.net/nikita_ppv/php-7-what-changed-internally
   - http://www.slideshare.net/jpauli/php7-is-coming
@@ -24,3 +20,5 @@ This book was based on work from others. I had to learn this stuff too somehow.
   - http://fr.slideshare.net/jpauli/understanding-php-memory
   - http://php.net/manual/en/internals2.ze1.zendapi.php
   - http://www.phpinternalsbook.com/
+
+And, not to forget the "Extending and embedding PHP" book from Sara Golemon.
