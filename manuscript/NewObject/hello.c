@@ -41,7 +41,7 @@ PHP_MINIT_FUNCTION(hello) {
     /* namespace Earth\Animal { class Human {} } */
     zend_class_entry ce;
     INIT_CLASS_ENTRY(ce, ZEND_NS_NAME("Earth\\Animal", "Human"), hello_functions);
-    php_animal_human_ce = zend_register_internal_class(&ce TSRMLS_CC);
+    php_animal_human_ce = zend_register_internal_class(&ce);
 
     return SUCCESS;
 }
