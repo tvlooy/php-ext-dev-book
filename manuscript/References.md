@@ -20,5 +20,6 @@
   - http://fr.slideshare.net/jpauli/understanding-php-memory
   - http://php.net/manual/en/internals2.ze1.zendapi.php
   - http://www.phpinternalsbook.com/
+  - https://wiki.php.net/phpng-upgrading
 
 And, not to forget the "Extending and embedding PHP" book from Sara Golemon.
