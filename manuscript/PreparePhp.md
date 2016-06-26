@@ -111,7 +111,7 @@ apt-get install -y \
     bison \
     g++
 
-# Dependencies for the extensions
+# Dependencies for the selected extensions
 apt-get install -y \
     libxml2-dev \
     libbz2-dev \
@@ -125,7 +125,8 @@ apt-get install -y \
     libicu-dev \
     libreadline6-dev \
     libmcrypt-dev \
-    libxslt1-dev
+    libxslt1-dev \
+    libssl-dev
 ```
 
 Compile and install PHP CLI and FPM. I build them separately because I like to
