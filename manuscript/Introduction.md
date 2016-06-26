@@ -15,4 +15,4 @@ something. Do share this with others. If you prefer to donate money, the money
 will be spent on donations to other FOSS projects. There is no interest in making
 financial benefits from this book.
 
-I welcome patches to this book.
+I welcome fixes / patches / comments / ... to this book.
