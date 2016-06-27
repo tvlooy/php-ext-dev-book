@@ -235,16 +235,25 @@ mkdir /etc/php7.0/fpm/pool.d/
 cp /usr/local/php7.0/etc/php-fpm.d/www.conf.default /etc/php7.0/fpm/pool.d/www.conf
 sed -i 's/listen = 127.0.0.1:9000/listen = 127.0.0.1:9070/g' /etc/php7.0/fpm/pool.d/www.conf
 
-# Enable in RC system (there is an init.d and systemd version available)
+# Enable in systemd
 
-cp sapi/fpm/init.d.php-fpm /etc/init.d/php7.0-fpm
-chmod +x /etc/init.d/php7.0-fpm
+cat << EOF >/etc/systemd/system/php7.0-fpm.service
+[Unit]
+Description=The PHP FastCGI Process Manager
+After=syslog.target network.target
 
-sed -i 's/Provides:          php-fpm/Provides:          php7.0-fpm/' /etc/init.d/php7.0-fpm
-sed -i 's#^php_fpm_CONF=.*#php_fpm_CONF=/etc/php7.0/fpm/php-fpm.conf#' /etc/init.d/php7.0-fpm
-sed -i 's#^php_fpm_PID=.*#php_fpm_PID=/var/run/php7.0-fpm.pid#' /etc/init.d/php7.0-fpm
+[Service]
+Type=simple
+PIDFile=/var/run/php7.0-fpm.pid
+ExecStart=/usr/local/php7.0/sbin/php-fpm --nodaemonize --fpm-config /etc/php7.0/fpm/php-fpm.conf
+ExecReload=/bin/kill -USR2 $MAINPID
 
-update-rc.d php7.0-fpm defaults
+[Install]
+WantedBy=multi-user.target
+EOF
+
+systemctl enable php7.0-fpm
+systemctl start php7.0-fpm
 ```
 
 Now you are ready to use PHP from ```/usr/local/php7.0/bin/php```. You can symlink
