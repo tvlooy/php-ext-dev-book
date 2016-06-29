@@ -126,7 +126,8 @@ apt-get install -y \
     libreadline6-dev \
     libmcrypt-dev \
     libxslt1-dev \
-    libssl-dev
+    libssl-dev \
+    libsystemd-dev
 ```
 
 Compile and install PHP CLI and FPM. I build them separately because I like to
@@ -217,6 +218,7 @@ make distclean
     --with-config-file-scan-dir=/etc/php7.0/fpm/conf.d \
     --disable-cli \
     --enable-fpm \
+    --with-fpm-systemd \
     --with-fpm-user=www-data \
     --with-fpm-group=www-data
 
@@ -243,10 +245,11 @@ Description=The PHP FastCGI Process Manager
 After=syslog.target network.target
 
 [Service]
-Type=simple
+Type=notify
 PIDFile=/var/run/php7.0-fpm.pid
 ExecStart=/usr/local/php7.0/sbin/php-fpm --nodaemonize --fpm-config /etc/php7.0/fpm/php-fpm.conf
 ExecReload=/bin/kill -USR2 $MAINPID
+PrivateTmp=yes
 
 [Install]
 WantedBy=multi-user.target
@@ -255,6 +258,10 @@ EOF
 systemctl enable php7.0-fpm
 systemctl start php7.0-fpm
 ```
+
+Note that FPM was built with the ```--with-fpm-systemd``` flag. This is to support
+the ```Type=notify``` in the systemd service. It will show more information with
+the ```systemctl status php7.0-fpm``` command.
 
 Now you are ready to use PHP from ```/usr/local/php7.0/bin/php```. You can symlink
 the binaries ```php```, ```phpize```, ... to a directory in your path or just
