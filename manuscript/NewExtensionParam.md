@@ -49,7 +49,7 @@ ZEND_END_ARG_INFO();
 
 zend_function_entry hello_functions[] = {
   PHP_FE(hello, hello_arginfo)
-  { NULL, NULL, NULL }
+  PHP_FE_END
 };
 ```
 

@@ -18,6 +18,11 @@ if test "$PHP_HELLO" != "no"; then
 fi
 ```
 
+The ```config.m4``` file enables an argument ```--enable-hello``` to build the
+extension with PHP. You have to align the flag or it will not be in line when
+you ```./configure --help```. In these examples I will always build extensions
+separately.
+
 ```c
 /* php_hello.h */
 
@@ -39,7 +44,7 @@ PHP_FUNCTION(hello);
 /* define the function we want to add */
 zend_function_entry hello_functions[] = {
   PHP_FE(hello, NULL)
-  { NULL, NULL, NULL }
+  PHP_FE_END
 };
 
 /* "hello_functions" refers to the struct defined above */
@@ -78,7 +83,7 @@ ln -s /etc/php7/conf.d/hello.ini /etc/php7/cli/conf.d/hello.ini
 ln -s /etc/php7/conf.d/hello.ini /etc/php7/fpm/conf.d/hello.ini
 ```
 
-Or, you can not install it and just load it from the build directory:
+Or, you can not install it yet and just load it from the build directory:
 
 ```bash
 php -a -dextension=modules/hello.so
@@ -98,6 +103,11 @@ Hello world!
 
 The optional ```-n``` flag makes sure you don't load the default ini file.
 
+I you are done with your development and want to commit your code to Git, you will
+notice that the directory is full of build files you don't need. Cleanup these with:
+
+```phpize --clean```
+
 ## More functions
 
 Adding more functions is a matter of adding them to the hello_functions, writing
@@ -109,7 +119,7 @@ the actual function and exporting it in the header.
 zend_function_entry hello_functions[] = {
   PHP_FE(hi_world, NULL)
   PHP_FE(bye_world, NULL)
-  { NULL, NULL, NULL }
+  PHP_FE_END
 };
 
 PHP_FUNCTION(hi_world) {

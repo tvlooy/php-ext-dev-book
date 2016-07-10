@@ -10,7 +10,7 @@
 zend_function_entry hello_functions[] = {
   PHP_FE(hi_world, NULL)
   PHP_FE(bye_world, NULL)
-  { NULL, NULL, NULL }
+  PHP_FE_END
 };
 
 /* "hello_functions" refers to the struct defined above */
@@ -33,4 +33,3 @@ PHP_FUNCTION(hi_world) {
 PHP_FUNCTION(bye_world) {
   php_printf("Goodbye world!\n");
 }
-

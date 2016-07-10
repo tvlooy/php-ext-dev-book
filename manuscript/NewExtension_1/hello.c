@@ -9,7 +9,7 @@
 /* define the function we want to add */
 zend_function_entry hello_functions[] = {
   PHP_FE(hello, NULL)
-  { NULL, NULL, NULL }
+  PHP_FE_END
 };
 
 /* "hello_functions" refers to the struct defined above */
