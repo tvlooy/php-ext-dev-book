@@ -9,7 +9,7 @@ for the PHP version they package for you. Eg:
   - php-devel on CentOS
 
 But, you can also get the source from Git and use that. I prefer this option.
-There is a GitHub mirror of official PHP repository http://git.php.net/ at:
+There is a GitHub mirror of the official PHP repository http://git.php.net/
 
 ```bash
 git clone https://github.com/php/php-src.git
@@ -28,7 +28,7 @@ git checkout master
 If you are on master, this is bleeding edge. At this moment it points to the
 development version of PHP-7.1. The PHP-7.0 will point to the latest PHP 7.0
 release, with all patches that were merged after the release. If you want to
-use a released versions, checkout as specific branch like PHP-7.0.8.
+use a released versions, checkout a specific branch, like PHP-7.0.8.
 
 ## Building a minimal version
 
@@ -53,14 +53,14 @@ not optimized. With optimized binaries, tools like the GNU debugger (gdb) will
 have a difficult time trying to translate things back to what was your original
 code.
 
-> **Efficiency tip:** make will use GCC to compile the code. There is a wrapper,
-called "colorgcc" that colorizes the output with warning / error messages. It is
-packaged on Ubuntu/Debian, When installed, GCC will automatically colorize it's
-output.
+> **Efficiency tip:** GNU ```make``` will use GCC to compile the code. There is
+a wrapper, called "colorgcc" that colorizes the output with warning / error
+messages. It is packaged on Ubuntu/Debian, When installed, GCC will automatically
+colorize it's output.
 
 The PHP binary will be in ```./sapi/cli/php```.
 
-You can run make in parallel if you want to use more cores. Eg: ```make -j2```
+You can run make in parallel if you want to use more CPU cores. Eg: ```make -j2```
 for 2 using cores. Or use ```make -j`nproc` ``` as a shorthand. Note that this
 does not make your build process scale linearly.
 
@@ -77,7 +77,7 @@ your own extensions.
 
 Consider that you need ZTS when the pthreads (POSIX threads) extension is used,
 or when the webserver (Apache2 mpm-worker or IIS) uses PHP as a module. When
-FastCGI / FPM is used, or Apache2 mpm-worker, you don't need ZTS because forking
+FastCGI / FPM is used, or Apache2 mpm-prefork, you don't need ZTS because forking
 (new processes) is used over threads.
 
 NTS is the preferred way of running PHP. NTS also makes it a little bit easier
@@ -90,20 +90,19 @@ displayed it will be NTS.
 ## Building a full version
 
 A minimal PHP version will be good to test PHP core, but will get you stuck
-pretty fast if you want to test a framework with the latest PHP release.
+pretty fast if you want to test a web framework with the latest PHP release.
 
 If you have never built PHP, how do you figure out what to include in your
 configure string? Easy. The ```php-config``` binary from php development package
-will display the --configure-options that were used. If you want to review all
-possible options, use ```./configure --help```.
+will display the ```--configure-options``` that were used. If you want to review
+all possible options, use ```./configure --help```.
 
 This is how I build my PHP, it's more or less what you get from your Linux distro.
 Dependencies you need on Debian 8 are:
 
 ```bash
-apt-get update
-
 # Dependencies for building
+apt-get update
 apt-get install -y \
     make \
     autoconf \
@@ -204,7 +203,10 @@ Next clean the build and do the same for FPM.
 
 Note that I use ```www-data``` as the user for FPM. This user is available if
 you install Nginx or Apache2 on Debian. If you don't have this user, create it
-first or use a different user:
+first or use a different user. Using a separate user for each website is
+considered as a good security practice. You can configure users in the FPM
+pool configuration. The option in the configure script just set a default in the
+main FPM configuration.
 
 ```bash
 make distclean
@@ -259,13 +261,16 @@ systemctl enable php7.0-fpm
 systemctl start php7.0-fpm
 ```
 
+The PHP source also provides an init.d script, but almost all Linux distributions,
+including Debian and CentOS, use systemd these days.
+
 Note that FPM was built with the ```--with-fpm-systemd``` flag. This is to support
 the ```Type=notify``` in the systemd service. It will show more information with
 the ```systemctl status php7.0-fpm``` command.
 
 Now you are ready to use PHP from ```/usr/local/php7.0/bin/php```. You can symlink
-the binaries ```php```, ```phpize```, ... to a directory in your path or just
-add the entire directory to your path.
+the binaries ```php```, ```phpize```, ```php-config```, ... to a directory in
+your path or just add the entire directory to your path.
 
 ```bash
 export PATH=$PATH:/usr/local/php7.0/bin:/usr/local/php7.0/sbin
@@ -281,3 +286,44 @@ echo "zend_extension=opcache.so" > /etc/php7.0/conf.d/opcache.ini
 ln -s /etc/php7.0/conf.d/opcache.ini /etc/php7.0/cli/conf.d/opcache.ini
 ln -s /etc/php7.0/conf.d/opcache.ini /etc/php7.0/fpm/conf.d/opcache.ini
 ```
+
+The PHP extensions in the ```ext``` directory can be built into PHP or built as
+a module. Modules, like opcache, are loaded separately. If you want to add snmp
+support to your PHP installation. You don't have to build everything from source
+again. Just build the snmp extension and load it as a module.
+
+```bash
+cd ext/snmp
+phpize
+./configure
+make
+make install
+```
+
+The opcache extension is a special one. It is a Zend module. There are not many
+Zend modules. Regulare modules are loaded with ```extension=...```.
+
+```bash
+echo "extension=snmp.so" > /etc/php7.0/conf.d/snmp.ini
+ln -s /etc/php7.0/conf.d/snmp.ini /etc/php7.0/cli/conf.d/snmp.ini
+ln -s /etc/php7.0/conf.d/snmp.ini /etc/php7.0/fpm/conf.d/snmp.ini
+```
+
+Check if the module gets loaded correctly:
+
+```bash
+php -m | grep snmp
+snmp
+```
+
+If you need a module that is not provided by PHP in the ```ext``` directory,
+you can go to pecl at https://pecl.php.net/ to find a module that is maintained
+by the community. For example, modules to talk to MongoDB, Memcached, or some
+other database. Modules to work with SSH, geoIP, etc.
+
+These pecl modules can be built the same way as the modules that are provided by
+PHP. Read the documentation for each module to understand how to use it.
+
+There is an installer called pear at https://pear.php.net/ that can download,
+compile and install pecl modules for you. Pear also hosts PHP libraries that are
+written in PHP. Pecl only has extensions that are written in C.
