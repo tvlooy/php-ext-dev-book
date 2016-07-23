@@ -74,3 +74,12 @@ test for it. Put the ID of the bug in the name of the text, eg: bug12345.phpt.
 This makes it easy for the developers to reproduce the bug and all future versions
 of PHP or the extension will keep test for this specific bug, making sure it will
 never happen again.
+
+If you don't want the script to ask "Do you want to send this report now? [Yns]:"
+run it with ```NO_INTERACTION``` set. Behind the scenes the ```run-tests.php```
+that is in the root of the php-scr directory will be used for make test. Look at
+that file for all details.
+
+```bash
+NO_INTERACTION=1 make test
+```
