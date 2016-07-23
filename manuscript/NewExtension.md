@@ -47,9 +47,13 @@ to compile it into PHP with ```--enable-hello``` instead of as a module.
 /* this module's header file */
 #include "php_hello.h"
 
+/* provide info for the reflection API */
+ZEND_BEGIN_ARG_INFO(arginfo_hello, 0)
+ZEND_END_ARG_INFO();
+
 /* define the function we want to add */
 zend_function_entry hello_functions[] = {
-  PHP_FE(hello, NULL)
+  PHP_FE(hello, arginfo_hello)
   PHP_FE_END
 };
 
@@ -122,9 +126,15 @@ the actual function and exporting it in the header.
 ```c
 /* hello.c */
 
+/* provide info for the reflection API */
+ZEND_BEGIN_ARG_INFO(arginfo_hi_world, 0)
+ZEND_END_ARG_INFO();
+ZEND_BEGIN_ARG_INFO(arginfo_bye_world, 0)
+ZEND_END_ARG_INFO();
+
 zend_function_entry hello_functions[] = {
-  PHP_FE(hi_world, NULL)
-  PHP_FE(bye_world, NULL)
+  PHP_FE(hi_world, arginfo_hi_world)
+  PHP_FE(bye_world, arginfo_bye_world)
   PHP_FE_END
 };
 

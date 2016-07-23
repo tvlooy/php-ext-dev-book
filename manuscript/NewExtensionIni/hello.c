@@ -7,13 +7,14 @@
 /* this module's header file */
 #include "php_hello.h"
 
-ZEND_BEGIN_ARG_INFO(hello_arginfo, 0)
+/* provide info for the reflection API */
+ZEND_BEGIN_ARG_INFO(arginfo_hello, 0)
   ZEND_ARG_INFO(0, name)
 ZEND_END_ARG_INFO();
 
 /* define the function we want to add */
 zend_function_entry hello_functions[] = {
-  PHP_FE(hello, hello_arginfo)
+  PHP_FE(hello, arginfo_hello)
   PHP_FE_END
 };
 

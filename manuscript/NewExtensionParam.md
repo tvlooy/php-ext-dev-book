@@ -43,12 +43,12 @@ Now that the function returns something. Let's accept an input argument. Change
 the function entry to this:
 
 ```c
-ZEND_BEGIN_ARG_INFO(hello_arginfo, 0)
+ZEND_BEGIN_ARG_INFO(arginfo_hello, 0)
   ZEND_ARG_INFO(0, name)
 ZEND_END_ARG_INFO();
 
 zend_function_entry hello_functions[] = {
-  PHP_FE(hello, hello_arginfo)
+  PHP_FE(hello, arginfo_hello)
   PHP_FE_END
 };
 ```
@@ -67,5 +67,29 @@ PHP_FUNCTION(hello) {
 
   php_printf("Hello %s\n", name);
   RETURN_TRUE;
+}
+```
+
+Note that the ```arginfo_hello``` is used by the reflection API. You could omit
+it but that would mean reflection would not work on your function. You can dump
+reflection information of your own module with:
+
+```bash
+php -dextension=modules/hello.so --re hello
+```
+
+This would output something like:
+
+```
+Extension [ <persistent> extension #48 hello version 0.1 ] {
+
+  - Functions {
+    Function [ <internal:hello> function hello ] {
+
+      - Parameters [1] {
+        Parameter #0 [ <required> $name ]
+      }
+    }
+  }
 }
 ```
