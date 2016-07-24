@@ -1,4 +1,6 @@
-# Recent material, covering PHP 7
+# References
+
+## Recent material, covering PHP 7
 
   - PHP 7 extensions workshop, slides http://www.slideshare.net/jpauli/php7-extensions-workshop
   - PHP 7 extensions workshop, code https://github.com/jpauli/PHP_Extension_Workshop/
@@ -14,7 +16,7 @@
   - Hacking on PHP 7 with Joe Watkins, part 1 https://youtu.be/_arORgEVl-M
   - Hacking on PHP 7 with Joe Watkins, part 2 https://youtu.be/f9N-v-JUbTQ
 
-# Other material
+## Other material
 
   - http://www.phpinternalsbook.com/
   - http://devzone.zend.com/303/extension-writing-part-i-introduction-to-php-and-zend/

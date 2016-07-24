@@ -1,5 +1,7 @@
 # Writing tests
 
+## Your first test
+
 PHP is tested with PHPT files. These are files that contain PHP code to check if
 functionality behaves as expected. See http://qa.php.net/write-test.php for more info.
 
@@ -45,6 +47,8 @@ file. There will be a lot of information:
   - hello.diff The difference between the expected and actual result
   - hello.php A PHP snippet of the failing test
   - hello.sh A script to run the PHP snippet of the failing test
+
+## More tests
 
 You can test more than one case in a PHPT file, or you can create multiple PHPT
 files for different features.
