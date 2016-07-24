@@ -130,7 +130,7 @@ Rookie mistake, read "The C programming language" (K&R) section 5.5 "Character P
 
 ## Memory leaks
 
-Let's make the function leak memory by allocating 128 bytes of memory and not releasing them:
+Let's make the function leak some memory by allocating 128 bytes of memory and not releasing it:
 
 ```c
 PHP_FUNCTION(hello) {
@@ -223,4 +223,4 @@ Hello world
 ```
 
 The output is clear "definitely lost: 128 bytes in 1 blocks", and it points to "zend_alloc"
-functionality the function "zif_hello" in file "hello.c" line 38.
+functionality in the function "zif_hello" in file "hello.c" line 38.
