@@ -71,7 +71,7 @@ It immediately points out that there is a problem with the ```toupper()``` in ``
 It will not always be this obvious, sometimes you want to get a backtrace to see how you got at this line. Run ```bt``` to get a full stack trace:
 
 ```
-((gdb) bt
+(gdb) bt
 #0  0x00007fe35992896e in zif_hello (execute_data=0x7fe35a6130a0, return_value=0x7fe35a613090) at .../manuscript/CoreDump/hello.c:42
 #1  0x0000000000b052d8 in ZEND_DO_ICALL_SPEC_HANDLER () at .../Zend/zend_vm_execute.h:586
 #2  0x0000000000b04d04 in execute_ex (ex=0x7fe35a613030) at .../Zend/zend_vm_execute.h:414
