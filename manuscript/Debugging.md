@@ -158,13 +158,69 @@ Hello world
 === Total 1 memory leaks detected ===
 ```
 
-PHP has an ini flag ```report_memleaks``` which is on by default. You can turn it off and PHP will no longer print info about the leak:
+If PHP is built with ```--enable-debug``` and the ini flag ```report_memleaks``` is ```On``` (this is by default), memory leaks will be reported.
+You can turn it off and PHP will no longer print info about the leak:
 
 ```
 $ php -dreport_memleaks=Off -dextension=modules/hello.so -r "hello('world');"
 Hello world
 ```
 
-Tools like Valgrind and Electric Fence can help you find memory leaks. Make sure to turn off Zend Memory Manager when you try to detect memory leaks.
+The reason why the engine detects the leak is because ```emalloc()``` is part of the PHP API and it tracks allocations.
+Never use the system default allocators like ```malloc()``` to work with memory, the engine will not detect leaks.
+More information about PHP memory API at http://php.net/manual/en/internals2.memory.management.php
+
+Tools like Valgrind can help you debug memory leaks.
 
 ### Valgrind
+
+Note: I compiled Valgrind from source because the latest version has a bug that makes it unusable.
+See http://valgrind.org/downloads/repository.html for instructions.
+
+Make sure to turn off Zend Memory Manager (ZMM) when debugging leaks with Valgrind.
+It will force the system to use the default system allocators.
+
+Also make sure Zend doesn't unload the modules. Otherwise Valgrind will have gaps in it's output.
+It will try to make a report but the modules are already gone.
+
+```
+$ ZEND_DONT_UNLOAD_MODULES=1 USE_ZEND_ALLOC=0 valgrind --leak-check=yes php -dextension=modules/hello.so -r "hello('world');"
+==30599== Memcheck, a memory error detector
+==30599== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+==30599== Using Valgrind-3.12.0.SVN and LibVEX; rerun with -h for copyright info
+==30599== Command: php -dextension=modules/hello.so -r hello('world');
+==30599==
+Hello world
+==30599==
+==30599== HEAP SUMMARY:
+==30599==     in use at exit: 80,645 bytes in 42 blocks
+==30599==   total heap usage: 31,207 allocs, 31,165 frees, 3,639,418 bytes allocated
+==30599==
+==30599== 128 bytes in 1 blocks are definitely lost in loss record 30 of 38
+==30599==    at 0x4C2DBB6: malloc (vg_replace_malloc.c:299)
+==30599==    by 0xA70761: _emalloc (zend_alloc.c:2446)
+==30599==    by 0x10C4397C: zif_hello (hello.c:38)
+==30599==    by 0xB052D7: ZEND_DO_ICALL_SPEC_HANDLER (zend_vm_execute.h:586)
+==30599==    by 0xB04D03: execute_ex (zend_vm_execute.h:414)
+==30599==    by 0xB04E14: zend_execute (zend_vm_execute.h:458)
+==30599==    by 0xA8EA36: zend_eval_stringl (zend_execute_API.c:1135)
+==30599==    by 0xA8EC5B: zend_eval_stringl_ex (zend_execute_API.c:1176)
+==30599==    by 0xA8ECE1: zend_eval_string_ex (zend_execute_API.c:1187)
+==30599==    by 0xB6DF9C: do_cli (php_cli.c:1005)
+==30599==    by 0xB6F064: main (php_cli.c:1344)
+==30599==
+==30599== LEAK SUMMARY:
+==30599==    definitely lost: 128 bytes in 1 blocks
+==30599==    indirectly lost: 0 bytes in 0 blocks
+==30599==      possibly lost: 0 bytes in 0 blocks
+==30599==    still reachable: 80,517 bytes in 41 blocks
+==30599==         suppressed: 0 bytes in 0 blocks
+==30599== Reachable blocks (those to which a pointer was found) are not shown.
+==30599== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==30599==
+==30599== For counts of detected and suppressed errors, rerun with: -v
+==30599== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+```
+
+The output is clear "definitely lost: 128 bytes in 1 blocks", and it points to "zend_alloc"
+functionality the function "zif_hello" in file "hello.c" line 38.
