@@ -54,7 +54,7 @@ Segmentation fault (core dumped)
 
 A file named ```core``` will be created.
 
-### Find problem
+### Locating the problem
 
 Run the GNU debugger on php with your coredump.
 
