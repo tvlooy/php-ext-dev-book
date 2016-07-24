@@ -5,7 +5,7 @@ debug a problem? For example:
 
 ## Segfaults
 
-I changed the function to print "hello" in uppercase, but made a programming mistake.
+I changed the function to print "hello" with an uppercase "H", but made a programming mistake.
 
 ```c
 /* for toupper() */
