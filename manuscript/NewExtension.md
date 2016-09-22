@@ -1,6 +1,6 @@
 # Your first simple extension
 
-Extensions should follow the PHP codings standards. You can find these at
+Extensions should follow the PHP coding standards. You can find these at
 [https://github.com/php/php-src/blob/master/CODING_STANDARDS](https://github.com/php/php-src/blob/master/CODING_STANDARDS).
 
 ## Hello world
@@ -35,8 +35,8 @@ extern zend_module_entry hello_module_entry;
 PHP_FUNCTION(hello);
 ```
 
-The extern and define are needed to make the module available if you would like
-to compile it into PHP with ```--enable-hello``` instead of as a module.
+The ```extern``` and ```define``` are needed to make the module available if you
+would like to compile it into PHP with ```--enable-hello``` instead of as a module.
 
 ```c
 /* hello.c */
@@ -114,7 +114,7 @@ Hello world!
 The optional ```-n``` flag makes sure you don't load the default ini file.
 
 I you are done with your development and want to commit your code to Git, you will
-notice that the directory is full of build files you don't need. Cleanup these with:
+notice that the directory is full of build files you don't need. Clean up these with:
 
 ```phpize --clean```
 

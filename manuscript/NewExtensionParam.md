@@ -34,7 +34,7 @@ make
 ```
 
 Note that instead of RETURN_BOOL(), you can also use the RETURN_TRUE and
-RETURN_FALSE macros (withhout parentheses). Besides that there are also these
+RETURN_FALSE macros (without parentheses). Besides that there are also these
 return types available: ```RESOURCE```, ```ARRAY``` (or ```HASH```) and ```OBJECT```.
 
 ## Input argument

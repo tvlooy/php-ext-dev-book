@@ -301,7 +301,7 @@ make install
 ```
 
 The opcache extension is a special one. It is a Zend module. There are not many
-Zend modules. Regulare modules are loaded with ```extension=...```.
+Zend modules. Regular modules are loaded with ```extension=...```.
 
 ```bash
 echo "extension=snmp.so" > /etc/php7.0/conf.d/snmp.ini
@@ -356,5 +356,4 @@ Build your extension via Eclipse CDT.
 Right click your project -> Build Project
 ```
 
-After that, all references like php.h, macro explansion etc. will work.
-
+After that, all references like php.h, macro expansion etc. will work.
