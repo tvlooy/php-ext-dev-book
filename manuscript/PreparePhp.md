@@ -327,3 +327,34 @@ PHP. Read the documentation for each module to understand how to use it.
 There is an installer called pear at https://pear.php.net/ that can download,
 compile and install pecl modules for you. Pear also hosts PHP libraries that are
 written in PHP. Pecl only has extensions that are written in C.
+
+## IDE support
+
+Eclipse CDT (C/C++ Development Tooling) [https://eclipse.org/cdt/](https://eclipse.org/cdt/)
+will make your life a lot easier. Use it to work on PHP core and extensions.
+
+For example: PHP makes heavily use of macro's. Eclipse CDT has macro expansion functionality.
+
+Normally you develop your own extensions outside of the PHP scr or ext directory.
+This is how you set up an Eclipse CDT project to make it work with your PHP src installation.
+
+```
+File -> New -> Makefile Project with Existing Code
+````
+
+Set a Project Name and Browse to your existing Code Location.
+
+```
+Right click your project -> Configure -> Configure and Detect Nested Projects
+```
+
+Add the location of your local PHP source folder.
+
+Build your extension via Eclipse CDT.
+
+```
+Right click your project -> Build Project
+```
+
+After that, all references like php.h, macro explansion etc. will work.
+
