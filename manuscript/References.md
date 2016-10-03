@@ -30,5 +30,7 @@
   - http://fr.slideshare.net/jpauli/understanding-php-memory
   - http://php.net/manual/en/internals2.ze1.zendapi.php
   - https://wiki.php.net/phpng-upgrading
+  - http://externals.io/
+  - https://github.com/beberlei/whitewashing.de/blob/master/drafts/porting_extension_to_php7.rst
 
 And, not to forget the "Extending and embedding PHP" book from Sara Golemon.
