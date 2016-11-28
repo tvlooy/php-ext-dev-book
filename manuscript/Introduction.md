@@ -1,6 +1,6 @@
 # Introduction
 
-This book is open-sourced at https://github.com/tvlooy/phpinternals and available
+This book is open-sourced at https://github.com/tvlooy/php-ext-dev-book and available
 under the creative commons "Attribution-NonCommercial-NoDerivs CC BY-NC-ND" license.
 
 Visit https://creativecommons.org/licenses/by-nc-nd/4.0/ for more info.
