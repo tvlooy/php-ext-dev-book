@@ -340,7 +340,7 @@ This is how you set up an Eclipse CDT project to make it work with your PHP src 
 
 ```
 File -> New -> Makefile Project with Existing Code
-````
+```
 
 Set a Project Name and Browse to your existing Code Location.
 
