@@ -115,7 +115,9 @@ The optional ```-n``` flag makes sure you don't load the default ini file.
 I you are done with your development and want to commit your code to Git, you will
 notice that the directory is full of build files you don't need. Clean up these with:
 
-```phpize --clean```
+```
+phpize --clean
+```
 
 ## More functions
 
