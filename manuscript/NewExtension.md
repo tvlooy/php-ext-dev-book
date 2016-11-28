@@ -1,7 +1,6 @@
 # Your first simple extension
 
-Extensions should follow the PHP coding standards. You can find these at
-[https://github.com/php/php-src/blob/master/CODING_STANDARDS](https://github.com/php/php-src/blob/master/CODING_STANDARDS).
+Extensions should follow the PHP coding standards. You can find these at [php-src CODING_STANDARDS](https://github.com/php/php-src/blob/master/CODING_STANDARDS).
 
 ## Hello world
 
