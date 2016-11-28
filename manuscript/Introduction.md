@@ -1,9 +1,9 @@
 # Introduction
 
-This book is open-sourced at https://github.com/tvlooy/php-ext-dev-book and available
-under the creative commons "Attribution-NonCommercial-NoDerivs CC BY-NC-ND" license.
+This book is open-sourced at [https://github.com/tvlooy/php-ext-dev-book](https://github.com/tvlooy/php-ext-dev-book)
+and available under the creative commons "Attribution-NonCommercial-NoDerivs CC BY-NC-ND" license.
 
-Visit https://creativecommons.org/licenses/by-nc-nd/4.0/ for more info.
+Visit [https://creativecommons.org/licenses/by-nc-nd/4.0/](https://leanpub.com/php-extension-development) for more info.
 
 The primary objective of this book is helping other developers. I wanted to learn
 about extension writing and PHP core and not a lot of information is available.
