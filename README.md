@@ -1,7 +1,7 @@
 # README
 
 This is the work repository for the "getting started with PHP extension development"
-at [https://leanpub.com/phpinternals](https://leanpub.com/phpinternals).
+at [https://leanpub.com/php-extension-development](https://leanpub.com/php-extension-development).
 Read ```manuscript/Introduction.md``` for more information. 
 
 # LICENSE
