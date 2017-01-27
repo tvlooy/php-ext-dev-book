@@ -70,8 +70,8 @@ Warning: hello() expects exactly 1 parameter, 0 given in %s on line %d
 Note that in the first test example I used ```EXPECT``` and in the second I
 use ```EXPECTF``` to support the ```%s``` and ```%d``` variables.
 
-You can get examples of how to write tests the extensions in the ext directory
-of PHP to get lots of examples of how to write test cases.
+You can get a lot of examples of how to write test cases from the ext directory
+of PHP.
 
 If you ever encounter a bug in PHP or an extension, you have to write a specific
 test for it. Put the ID of the bug in the name of the text, eg: bug12345.phpt.
@@ -86,4 +86,11 @@ that file for all details.
 
 ```bash
 NO_INTERACTION=1 make test
+```
+
+If you have multiple tests but only want to run one or some of them, you can
+specify the test like this:
+
+```bash
+make test TESTS=tests/hello_with_parameter.phpt
 ```
