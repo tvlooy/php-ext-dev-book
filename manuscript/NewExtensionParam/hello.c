@@ -32,14 +32,13 @@ ZEND_GET_MODULE(hello)
 
 /* function hello(string $name): bool */
 PHP_FUNCTION(hello) {
-  char *name = NULL;
-  size_t name_len = 0;
+  zend_string *name;
 
-  if (zend_parse_parameters(ZEND_NUM_ARGS(), "s", &name, &name_len) == FAILURE) {
-    return;
-  }
+  ZEND_PARSE_PARAMETERS_START(1, 1)
+    Z_PARAM_STR(name)
+  ZEND_PARSE_PARAMETERS_END();
 
-  php_printf("Hello %s\n", name);
+  php_printf("Hello %s\n", ZSTR_VAL(name));
 
   RETURN_TRUE;
 }

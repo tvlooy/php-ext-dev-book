@@ -53,7 +53,11 @@ zend_function_entry hello_functions[] = {
 };
 ```
 
-In the function, parse the parameter:
+In the function, parse the parameter. I will give you 2 examples. The first is
+the old way, that is still works and is in use in a lot of places. The second
+is the new way.
+
+Old way:
 
 ```c
 /* function hello(string $name): bool */
@@ -70,6 +74,26 @@ PHP_FUNCTION(hello) {
   RETURN_TRUE;
 }
 ```
+
+Old way:
+
+```c
+/* function hello(string $name): bool */
+PHP_FUNCTION(hello) {
+  zend_string *name;
+
+  ZEND_PARSE_PARAMETERS_START(1, 1)
+    Z_PARAM_STR(name)
+  ZEND_PARSE_PARAMETERS_END();
+
+  php_printf("Hello %s\n", ZSTR_VAL(name));
+
+  RETURN_TRUE;
+}
+```
+
+The ```macro ZEND_PARSE_PARAMETERS_START``` has 2 parameters. The minumum
+and maximum number of arguments the function accepts.
 
 Note that the ```arginfo_hello``` is used by the reflection API. You could omit
 it but that would mean reflection would not work on your function. You can dump
