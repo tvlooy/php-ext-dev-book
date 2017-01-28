@@ -58,21 +58,20 @@ ZEND_GET_MODULE(hello)
 /* function hello(string $name): bool */
 PHP_FUNCTION(hello) {
   int i = 0;
-  char *name = NULL;
-  size_t name_len = 0;
+  zend_string *name;
 
-  if (zend_parse_parameters(ZEND_NUM_ARGS(), "s", &name, &name_len) == FAILURE) {
-    return;
-  }
+  ZEND_PARSE_PARAMETERS_START(1, 1)
+    Z_PARAM_STR(name)
+  ZEND_PARSE_PARAMETERS_END();
 
   if (INI_BOOL("hello.yell") == 1) {
-    while (name[i]) {
-      name[i] = toupper(name[i]);
+    while (name->val[i]) {
+      name->val[i] = toupper(name->val[i]);
       i++;
     }
-    php_printf("HELLO %s!\n", name);
+    php_printf("HELLO %s!\n",  ZSTR_VAL(name));
   } else {
-    php_printf("Hello %s\n", name);
+    php_printf("Hello %s\n",  ZSTR_VAL(name));
   }
 
   RETURN_TRUE;
