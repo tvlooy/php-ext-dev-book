@@ -8,14 +8,14 @@ it in the PHP_MINIT_FUNCTION.
 zend_class_entry *php_animal_human_ce;
 
 PHP_MINIT_FUNCTION(hello) {
-    REGISTER_INI_ENTRIES();
+  REGISTER_INI_ENTRIES();
 
-    /* namespace Earth\Animal { class Human {} } */
-    zend_class_entry ce;
-    INIT_CLASS_ENTRY(ce, ZEND_NS_NAME("Earth\\Animal", "Human"), NULL);
-    php_animal_human_ce = zend_register_internal_class(&ce);
+  /* namespace Earth\Animal { class Human {} } */
+  zend_class_entry ce;
+  INIT_CLASS_ENTRY(ce, ZEND_NS_NAME("Earth\\Animal", "Human"), NULL);
+  php_animal_human_ce = zend_register_internal_class(&ce);
 
-    return SUCCESS;
+  return SUCCESS;
 }
 ```
 
@@ -24,13 +24,13 @@ If you remember correctly, the function was added in ```hello_functions```.
 
 ```c
 PHP_MINIT_FUNCTION(hello) {
-    REGISTER_INI_ENTRIES();
+  REGISTER_INI_ENTRIES();
 
-    /* namespace Earth\Animal { class Human {} } */
-    zend_class_entry ce;
-    INIT_CLASS_ENTRY(ce, ZEND_NS_NAME("Earth\\Animal", "Human"), hello_functions);
-    php_animal_human_ce = zend_register_internal_class(&ce);
+  /* namespace Earth\Animal { class Human {} } */
+  zend_class_entry ce;
+  INIT_CLASS_ENTRY(ce, ZEND_NS_NAME("Earth\\Animal", "Human"), hello_functions);
+  php_animal_human_ce = zend_register_internal_class(&ce);
 
-    return SUCCESS;
+  return SUCCESS;
 }
 ```

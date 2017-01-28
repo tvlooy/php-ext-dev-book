@@ -35,13 +35,13 @@ PHP_INI_ENTRY("hello.yell", "0", PHP_INI_ALL, NULL)
 PHP_INI_END()
 
 PHP_MINIT_FUNCTION(hello) {
-    REGISTER_INI_ENTRIES();
-    return SUCCESS;
+  REGISTER_INI_ENTRIES();
+  return SUCCESS;
 }
 
 PHP_MSHUTDOWN_FUNCTION(hello) {
-    UNREGISTER_INI_ENTRIES();
-    return SUCCESS;
+  UNREGISTER_INI_ENTRIES();
+  return SUCCESS;
 }
 
 /* install module */
@@ -54,17 +54,17 @@ PHP_FUNCTION(hello) {
   size_t name_len = 0;
 
   if (zend_parse_parameters(ZEND_NUM_ARGS(), "s", &name, &name_len) == FAILURE) {
-      return;
+    return;
   }
 
   if (INI_BOOL("hello.yell") == 1) {
-      while (name[i]) {
-          name[i] = toupper(name[i]);
-           i++;
-      }
-      php_printf("HELLO %s!\n", name);
+    while (name[i]) {
+      name[i] = toupper(name[i]);
+       i++;
+    }
+    php_printf("HELLO %s!\n", name);
   } else {
-      php_printf("Hello %s\n", name);
+    php_printf("Hello %s\n", name);
   }
 
   RETURN_TRUE;

@@ -94,3 +94,18 @@ specify the test like this:
 ```bash
 make test TESTS=tests/hello_with_parameter.phpt
 ```
+
+If you want to run the tests for php-src, you can use ```make test``` or use
+the script ```run-tests.php``` in the root of the repository. This script also
+accepts a parameter if you don't want to run all tests.
+
+```bash
+run-tests.php tests/basic/001.phpt
+```
+
+Note that you have to set the environment variable ```TEST_PHP_EXECUTABLE``` to
+be able to use ```run-tests.php```.
+
+```bash
+export TEST_PHP_EXECUTABLE=$(which php)
+```

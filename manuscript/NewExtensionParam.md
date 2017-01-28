@@ -62,10 +62,11 @@ PHP_FUNCTION(hello) {
   size_t name_len = 0;
 
   if (zend_parse_parameters(ZEND_NUM_ARGS(), "s", &name, &name_len) == FAILURE) {
-      return;
+    return;
   }
 
   php_printf("Hello %s\n", name);
+
   RETURN_TRUE;
 }
 ```

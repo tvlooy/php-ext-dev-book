@@ -37,19 +37,19 @@ PHP_INI_END()
 zend_class_entry *php_animal_human_ce;
 
 PHP_MINIT_FUNCTION(hello) {
-    REGISTER_INI_ENTRIES();
+  REGISTER_INI_ENTRIES();
 
-    /* namespace Earth\Animal { class Human {} } */
-    zend_class_entry ce;
-    INIT_CLASS_ENTRY(ce, ZEND_NS_NAME("Earth\\Animal", "Human"), hello_functions);
-    php_animal_human_ce = zend_register_internal_class(&ce);
+  /* namespace Earth\Animal { class Human {} } */
+  zend_class_entry ce;
+  INIT_CLASS_ENTRY(ce, ZEND_NS_NAME("Earth\\Animal", "Human"), hello_functions);
+  php_animal_human_ce = zend_register_internal_class(&ce);
 
-    return SUCCESS;
+  return SUCCESS;
 }
 
 PHP_MSHUTDOWN_FUNCTION(hello) {
-    UNREGISTER_INI_ENTRIES();
-    return SUCCESS;
+  UNREGISTER_INI_ENTRIES();
+  return SUCCESS;
 }
 
 /* install module */
@@ -62,17 +62,17 @@ PHP_FUNCTION(hello) {
   size_t name_len = 0;
 
   if (zend_parse_parameters(ZEND_NUM_ARGS(), "s", &name, &name_len) == FAILURE) {
-      return;
+    return;
   }
 
   if (INI_BOOL("hello.yell") == 1) {
-      while (name[i]) {
-          name[i] = toupper(name[i]);
-           i++;
-      }
-      php_printf("HELLO %s!\n", name);
+    while (name[i]) {
+      name[i] = toupper(name[i]);
+      i++;
+    }
+    php_printf("HELLO %s!\n", name);
   } else {
-      php_printf("Hello %s\n", name);
+    php_printf("Hello %s\n", name);
   }
 
   RETURN_TRUE;
