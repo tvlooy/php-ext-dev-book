@@ -8,8 +8,14 @@ for the PHP version they package for you. Eg:
   - php7-dev on Debian
   - php-devel on CentOS
 
-But, you can also get the source from Git and use that. I prefer this option.
-There is a GitHub mirror of the official PHP repository http://git.php.net/
+If you want the latest PHP versions, they are probably not packaged by your
+distro yet. For Debian / Ubuntu there is https://deb.sury.org/ that you can
+add as DPA / PPA. This is maintained by Ondřej Surý, who is also an official
+package maintainer. For production, I always prefer packages.
+
+But, you can also get the source from Git and use that. I prefer this option
+to hack on my local machine. There is a GitHub mirror of the official PHP
+repository http://git.php.net/
 
 ```bash
 git clone https://github.com/php/php-src.git
@@ -26,7 +32,7 @@ git checkout master
 ```
 
 If you are on master, this is bleeding edge. At this moment it points to the
-development version of PHP-7.1. The PHP-7.0 will point to the latest PHP 7.0
+development version of PHP-7.2. The PHP-7.0 will point to the latest PHP 7.0
 release, with all patches that were merged after the release. If you want to
 use a released versions, checkout a specific branch, like PHP-7.0.8.
 
@@ -54,9 +60,9 @@ have a difficult time trying to translate things back to what was your original
 code.
 
 > **Efficiency tip:** GNU ```make``` will use GCC to compile the code. There is
-a wrapper, called "colorgcc" that colorizes the output with warning / error
-messages. It is packaged on Ubuntu/Debian, When installed, GCC will automatically
-colorize it's output.
+a wrapper, called "colorgcc" that colorizes the GCC output. This brings error
+and warning messages to your attention in a better way. It is packaged on
+Ubuntu/Debian, When installed, GCC will automatically colorize it's output.
 
 The PHP binary will be in ```./sapi/cli/php```.
 
