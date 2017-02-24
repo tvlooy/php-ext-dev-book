@@ -129,7 +129,6 @@ apt-get install -y \
     libimlib2-dev \
     libicu-dev \
     libreadline6-dev \
-    libmcrypt-dev \
     libxslt1-dev \
     libssl-dev \
     libsystemd-dev
@@ -172,7 +171,6 @@ CONFIGURE_STRING="--prefix=/usr/local/php7.0 \
                   --enable-soap \
                   --with-readline \
                   --with-curl \
-                  --with-mcrypt \
                   --with-xsl \
                   --disable-cgi"
 
