@@ -158,7 +158,7 @@ make distclean
     --with-config-file-path=/etc/php-${PHP_INSTALL_NAME}/cli \
     --with-config-file-scan-dir=/etc/php-${PHP_INSTALL_NAME}/cli/conf.d
 
-make -j2
+make -j`nproc`
 make install
 
 # Install config files
