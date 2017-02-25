@@ -21,8 +21,12 @@ zend_function_entry hello_functions[] = {
 zend_module_entry hello_module_entry = {
   STANDARD_MODULE_HEADER,
   PHP_HELLO_EXTNAME,
-  hello_functions,
-  NULL, NULL, NULL, NULL, NULL,
+  hello_functions,        /* Function entries */
+  NULL,                   /* Module init */
+  NULL,                   /* Module shutdown */
+  NULL,                   /* Request init */
+  NULL,                   /* Request shutdown */
+  NULL,                   /* Module information */
   PHP_HELLO_VERSION,
   STANDARD_MODULE_PROPERTIES
 };

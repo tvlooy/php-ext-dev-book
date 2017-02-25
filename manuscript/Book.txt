@@ -6,4 +6,5 @@ NewExtensionParam.md
 WritingTests.md
 NewExtensionIni.md
 NewObject.md
+AppendixA.md
 References.md

@@ -1,6 +1,7 @@
 # Your first simple extension
 
-Extensions should follow the PHP coding standards. You can find these at [php-src CODING_STANDARDS](https://github.com/php/php-src/blob/master/CODING_STANDARDS).
+Extensions should follow the PHP coding standards. You can find these
+at [php-src CODING_STANDARDS](https://github.com/php/php-src/blob/master/CODING_STANDARDS).
 
 ## Hello world
 
@@ -60,8 +61,12 @@ zend_function_entry hello_functions[] = {
 zend_module_entry hello_module_entry = {
   STANDARD_MODULE_HEADER,
   PHP_HELLO_EXTNAME,
-  hello_functions,
-  NULL, NULL, NULL, NULL, NULL,
+  hello_functions,        /* Function entries */
+  NULL,                   /* Module init */
+  NULL,                   /* Module shutdown */
+  NULL,                   /* Request init */
+  NULL,                   /* Request shutdown */
+  NULL,                   /* Module information */
   PHP_HELLO_VERSION,
   STANDARD_MODULE_PROPERTIES
 };
@@ -119,6 +124,40 @@ notice that the directory is full of build files you don't need. Clean up these 
 phpize --clean
 ```
 
+## The zend_module_entry
+
+The zend_module_entry is where the life cycle of the module is configured. In
+this first example, we set NULL for all all events.
+
+When your SAPI starts and the module is loaded, the configured "module init" is
+called. When the SAPI stops, the configured "module shutdown" is called.
+
+Once a SAPI has your module loaded, it can serve multiple requests. On every
+request, the configured "request init" and "request shutdown" is called.
+
+For example for Apache2 with mod_php that is configured
+with ```MaxRequestsPerChild 3```, a child process will look like this:
+
+```
++--------------+
+| MINIT        |
++--------------+
+|   RINIT      |
+|   PHP script |
+|   RSHUTDOWN  |
++--------------+
+|   RINIT      |
+|   PHP script |
+|   RSHUTDOWN  |
++--------------+
+|   RINIT      |
+|   PHP script |
+|   RSHUTDOWN  |
++--------------+
+| MSHUTDOWN    |
++--------------+
+```
+
 ## More functions
 
 Adding more functions is a matter of adding them to the hello_functions, writing
@@ -154,3 +193,5 @@ PHP_FUNCTION(bye_world) {
 PHP_FUNCTION(hi_world);
 PHP_FUNCTION(bye_world);
 ```
+
+Congrats! You just built your first module.

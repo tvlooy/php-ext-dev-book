@@ -32,9 +32,9 @@ git checkout master
 ```
 
 If you are on master, this is bleeding edge. At this moment it points to the
-development version of PHP-7.2. The PHP-7.0 will point to the latest PHP 7.0
+development version of PHP-7.2. The PHP-7.1 will point to the latest PHP 7.1
 release, with all patches that were merged after the release. If you want to
-use a released versions, checkout a specific branch, like PHP-7.0.8.
+use a released versions, checkout a specific branch, like PHP-7.1.2.
 
 ## Building a minimal version
 
@@ -142,13 +142,13 @@ have different php.ini configurations for both of them.
 
 # Prepare installation directories
 
-mkdir -p /etc/php7.0/conf.d
-mkdir -p /etc/php7.0/{cli,fpm}/conf.d
-mkdir /usr/local/php7.0
+mkdir -p /etc/php7.1/conf.d
+mkdir -p /etc/php7.1/{cli,fpm}/conf.d
+mkdir /usr/local/php7.1
 
 # Default options
 
-CONFIGURE_STRING="--prefix=/usr/local/php7.0 \
+CONFIGURE_STRING="--prefix=/usr/local/php7.1 \
                   --enable-bcmath \
                   --with-bz2 \
                   --with-zlib \
@@ -189,26 +189,26 @@ is CLI:
 ./configure \
     $CONFIGURE_STRING \
     --enable-pcntl \
-    --with-config-file-path=/etc/php7.0/cli \
-    --with-config-file-scan-dir=/etc/php7.0/cli/conf.d
+    --with-config-file-path=/etc/php7.1/cli \
+    --with-config-file-scan-dir=/etc/php7.1/cli/conf.d
 
 make -j2
 make install
 
 # Install config files
 
-cp php.ini-production /etc/php7.0/cli/php.ini
-sed -i 's/;date.timezone =.*/date.timezone = Europe\/Brussels/' /etc/php7.0/cli/php.ini
+cp php.ini-production /etc/php7.1/cli/php.ini
+sed -i 's/;date.timezone =.*/date.timezone = Europe\/Brussels/' /etc/php7.1/cli/php.ini
 ```
 
 Now would be the right time to run ```make test``` to help the PHP project.
 
 Next clean the build and do the same for FPM.
 
-Note that I use ```www-data``` as the user for FPM. This user is available if
-you install Nginx or Apache2 on Debian. If you don't have this user, create it
-first or use a different user. Using a separate user for each website is
-considered as a good security practice. You can configure users in the FPM
+Note that in this example, I use ```www-data``` as the user for FPM. This user
+is available if you install Nginx or Apache2 on Debian. You can set it to your
+own user for development. Using a separate user for each website is considered
+as a good security practice in production. You can configure users in the FPM
 pool configuration. The option in the configure script just set a default in the
 main FPM configuration.
 
@@ -220,8 +220,8 @@ make distclean
 ```bash
 ./configure \
     $CONFIGURE_STRING \
-    --with-config-file-path=/etc/php7.0/fpm \
-    --with-config-file-scan-dir=/etc/php7.0/fpm/conf.d \
+    --with-config-file-path=/etc/php7.1/fpm \
+    --with-config-file-scan-dir=/etc/php7.1/fpm/conf.d \
     --disable-cli \
     --enable-fpm \
     --with-fpm-systemd \
@@ -233,27 +233,27 @@ make install
 
 # Install config files
 
-cp php.ini-production /etc/php7.0/fpm/php.ini
-sed -i 's/;date.timezone =.*/date.timezone = Europe\/Brussels/' /etc/php7.0/fpm/php.ini
+cp php.ini-production /etc/php7.1/fpm/php.ini
+sed -i 's/;date.timezone =.*/date.timezone = Europe\/Brussels/' /etc/php7.1/fpm/php.ini
 
-cp sapi/fpm/php-fpm.conf.in /etc/php7.0/fpm/php-fpm.conf
-sed -i 's#^include=.*/#include=/etc/php7.0/fpm/pool.d/#' /etc/php7.0/fpm/php-fpm.conf
+cp sapi/fpm/php-fpm.conf.in /etc/php7.1/fpm/php-fpm.conf
+sed -i 's#^include=.*/#include=/etc/php7.1/fpm/pool.d/#' /etc/php7.1/fpm/php-fpm.conf
 
-mkdir /etc/php7.0/fpm/pool.d/
-cp /usr/local/php7.0/etc/php-fpm.d/www.conf.default /etc/php7.0/fpm/pool.d/www.conf
-sed -i 's/listen = 127.0.0.1:9000/listen = 127.0.0.1:9070/g' /etc/php7.0/fpm/pool.d/www.conf
+mkdir /etc/php7.1/fpm/pool.d/
+cp /usr/local/php7.1/etc/php-fpm.d/www.conf.default /etc/php7.1/fpm/pool.d/www.conf
+sed -i 's/listen = 127.0.0.1:9000/listen = 127.0.0.1:9070/g' /etc/php7.1/fpm/pool.d/www.conf
 
 # Enable in systemd
 
-cat << EOF >/etc/systemd/system/php7.0-fpm.service
+cat << EOF >/etc/systemd/system/php7.1-fpm.service
 [Unit]
 Description=The PHP FastCGI Process Manager
 After=syslog.target network.target
 
 [Service]
 Type=notify
-PIDFile=/var/run/php7.0-fpm.pid
-ExecStart=/usr/local/php7.0/sbin/php-fpm --nodaemonize --fpm-config /etc/php7.0/fpm/php-fpm.conf
+PIDFile=/var/run/php7.1-fpm.pid
+ExecStart=/usr/local/php7.1/sbin/php-fpm --nodaemonize --fpm-config /etc/php7.1/fpm/php-fpm.conf
 ExecReload=/bin/kill -USR2 $MAINPID
 PrivateTmp=yes
 
@@ -261,8 +261,8 @@ PrivateTmp=yes
 WantedBy=multi-user.target
 EOF
 
-systemctl enable php7.0-fpm
-systemctl start php7.0-fpm
+systemctl enable php7.1-fpm
+systemctl start php7.1-fpm
 ```
 
 The PHP source also provides an init.d script, but almost all Linux distributions,
@@ -270,15 +270,19 @@ including Debian and CentOS, use systemd these days.
 
 Note that FPM was built with the ```--with-fpm-systemd``` flag. This is to support
 the ```Type=notify``` in the systemd service. It will show more information with
-the ```systemctl status php7.0-fpm``` command.
+the ```systemctl status php7.1-fpm``` command.
 
-Now you are ready to use PHP from ```/usr/local/php7.0/bin/php```. You can symlink
+Now you are ready to use PHP from ```/usr/local/php7.1/bin/php```. You can symlink
 the binaries ```php```, ```phpize```, ```php-config```, ... to a directory in
 your path or just add the entire directory to your path.
 
 ```bash
-export PATH=$PATH:/usr/local/php7.0/bin:/usr/local/php7.0/sbin
+export PATH=$PATH:/usr/local/php7.1/bin:/usr/local/php7.1/sbin
 ```
+
+It's easy to switch to a different PHP version by changing the PATH variable.
+I added a complete script to build PHP and a script to switch versions in
+"Appendix A" of this book.
 
 ## Building extensions
 
@@ -286,9 +290,9 @@ You can now build extra extensions if you like. One extension, opcache, is alrea
 built and you will want to enable this for performance reasons.
 
 ```bash
-echo "zend_extension=opcache.so" > /etc/php7.0/conf.d/opcache.ini
-ln -s /etc/php7.0/conf.d/opcache.ini /etc/php7.0/cli/conf.d/opcache.ini
-ln -s /etc/php7.0/conf.d/opcache.ini /etc/php7.0/fpm/conf.d/opcache.ini
+echo "zend_extension=opcache.so" > /etc/php7.1/conf.d/opcache.ini
+ln -s /etc/php7.1/conf.d/opcache.ini /etc/php7.1/cli/conf.d/opcache.ini
+ln -s /etc/php7.1/conf.d/opcache.ini /etc/php7.1/fpm/conf.d/opcache.ini
 ```
 
 The PHP extensions in the ```ext``` directory can be built into PHP or built as
@@ -308,9 +312,9 @@ The opcache extension is a special one. It is a Zend module. There are not many
 Zend modules. Regular modules are loaded with ```extension=...```.
 
 ```bash
-echo "extension=snmp.so" > /etc/php7.0/conf.d/snmp.ini
-ln -s /etc/php7.0/conf.d/snmp.ini /etc/php7.0/cli/conf.d/snmp.ini
-ln -s /etc/php7.0/conf.d/snmp.ini /etc/php7.0/fpm/conf.d/snmp.ini
+echo "extension=snmp.so" > /etc/php7.1/conf.d/snmp.ini
+ln -s /etc/php7.1/conf.d/snmp.ini /etc/php7.1/cli/conf.d/snmp.ini
+ln -s /etc/php7.1/conf.d/snmp.ini /etc/php7.1/fpm/conf.d/snmp.ini
 ```
 
 Check if the module gets loaded correctly:
