@@ -138,25 +138,23 @@ request, the configured "request init" and "request shutdown" is called.
 For example for Apache2 with mod_php that is configured
 with ```MaxRequestsPerChild 3```, a child process will look like this:
 
-```
-+--------------+
-| MINIT        |
-+--------------+
-|   RINIT      |
-|   PHP script |
-|   RSHUTDOWN  |
-+--------------+
-|   RINIT      |
-|   PHP script |
-|   RSHUTDOWN  |
-+--------------+
-|   RINIT      |
-|   PHP script |
-|   RSHUTDOWN  |
-+--------------+
-| MSHUTDOWN    |
-+--------------+
-```
+    +--------------+
+    | MINIT        |
+    +--------------+
+    |   RINIT      |
+    |   PHP script |
+    |   RSHUTDOWN  |
+    +--------------+
+    |   RINIT      |
+    |   PHP script |
+    |   RSHUTDOWN  |
+    +--------------+
+    |   RINIT      |
+    |   PHP script |
+    |   RSHUTDOWN  |
+    +--------------+
+    | MSHUTDOWN    |
+    +--------------+
 
 ## More functions
 
