@@ -75,7 +75,7 @@ PHP_FUNCTION(hello) {
 }
 ```
 
-Old way:
+New way:
 
 ```c
 /* function hello(string $name): bool */

@@ -192,4 +192,4 @@ PHP_FUNCTION(hi_world);
 PHP_FUNCTION(bye_world);
 ```
 
-Congrats! You just built your first module.
+Congrats! You just built your first PHP extension.
