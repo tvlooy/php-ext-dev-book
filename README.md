@@ -8,3 +8,5 @@ Read ```manuscript/Introduction.md``` for more information.
 
 This work is available under the [creative commons "Attribution-NonCommercial-NoDerivs CC BY-NC-ND" license](https://creativecommons.org/licenses/by-nc-nd/4.0/).
 
+Source code examples are available under the "[Mozilla Public License Version 2.0](https://github.com/tvlooy/php-ext-dev-book/blob/master/LICENSE)".
+

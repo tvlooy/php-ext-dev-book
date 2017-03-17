@@ -5,6 +5,10 @@ and available under the creative commons "Attribution-NonCommercial-NoDerivs CC 
 
 Visit [https://creativecommons.org/licenses/by-nc-nd/4.0/](https://leanpub.com/php-extension-development) for more info.
 
+Source code examples are available under the "Mozilla Public License Version 2.0".
+
+Visit [https://www.mozilla.org/en-US/MPL/2.0/](https://www.mozilla.org/en-US/MPL/2.0/) for more info.
+
 The primary objective of this book is helping other developers. I wanted to learn
 about extension writing and PHP core and not a lot of information is available.
 I decided to document some of it for you, the reader, while I am learning myself ...
